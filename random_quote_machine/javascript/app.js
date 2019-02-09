@@ -15,7 +15,10 @@ class Quote extends React.Component {
     super(props);
     this.state = {
       randomQuote: "",
-      author: ""
+      author: "",
+      proxy: "https://cors-anywhere.herokuapp.com/",
+      API:
+        "http://quotesondesign.com/wp-json/posts?filter[orderby]=rand&filter[posts_per_page]=1"
     };
 
     this.getQuote = this.getQuote.bind(this);
@@ -23,12 +26,13 @@ class Quote extends React.Component {
 
   /* On first load, the page shows a random quote with an author */
   componentWillMount() {
-    fetch("https://talaikis.com/api/quotes/random/")
+    fetch(`${this.state.proxy}${this.state.API}`)
       .then(result => result.json())
       .then(data => {
+        let stripHtml = data[0].content.replace(/<(?:.|\n)*?>/gm, "");
         this.setState({
-          randomQuote: data.quote,
-          author: data.author
+          randomQuote: stripHtml,
+          author: data[0].title
         });
       })
       .catch(error => console.error(error));
@@ -37,12 +41,14 @@ class Quote extends React.Component {
   /* When the new-quote button is clicked a new quote will be fetched 
   and displayed along side author info */
   getQuote() {
-    fetch("https://talaikis.com/api/quotes/random/")
+    fetch(`${this.state.proxy}${this.state.API}`)
       .then(result => result.json())
       .then(data => {
+        console.log(data);
+        let stripHtml = data[0].content.replace(/<(?:.|\n)*?>/gm, "");
         this.setState({
-          randomQuote: data.quote,
-          author: data.author
+          randomQuote: stripHtml,
+          author: data[0].title
         });
       })
       .catch(error => console.error(error));
