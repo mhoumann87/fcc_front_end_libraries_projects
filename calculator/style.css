@@ -1,0 +1,101 @@
+/*
+* Set up variables for colors and font
+*/
+:root {
+  --font-calculator: "VT323", monospace;
+  --background-page: #e1ddd5;
+  --background-header: #414347;
+  --background-buttons: #bec6b9;
+  --background-functions: #bf381e;
+  --background-calculator: #585155;
+  --header-font: #c2b8b9;
+  --fonts: #585155;
+}
+
+/*
+* Reset margin and padding on browser styles and set border-box
+*/
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+*::before,
+*::after {
+  box-sizing: inherit;
+}
+
+/*
+* Setup base styles for the page
+*/
+
+html {
+  font-size: 100%;
+}
+
+body {
+  font-family: "Nunito Sans", sans-serif;
+  background-color: var(--background-page);
+}
+
+main {
+  min-height: 80vh;
+}
+
+/*
+* Header / footer styles
+*/
+
+header,
+footer {
+  background-color: var(--background-header);
+  padding: 0.3em;
+}
+
+header h1 {
+  font-size: 3.7rem;
+  color: var(--header-font);
+  font-weight: 200;
+  text-align: center;
+}
+
+footer {
+  padding: 1em;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+footer a,
+footer p {
+  color: var(--header-font);
+  font-size: 1.1rem;
+  transition: all 0.3s;
+}
+
+footer a:hover {
+  color: var(--background-functions);
+}
+
+footer i {
+  font-size: 1.8em;
+  padding-right: 0.5em;
+  transition: all 0.3s;
+}
+
+.fa-twitter:hover,
+.fa-twitter:focus {
+  color: #00aced;
+}
+
+.fa-github:hover,
+.fa-github:focus {
+  color: #24292e;
+}
+
+.fa-linkedin:hover,
+.fa-linkedin:focus {
+  color: #007bb6;
+}
