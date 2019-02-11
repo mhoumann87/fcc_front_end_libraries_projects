@@ -1,12 +1,9 @@
-<<<<<<< HEAD
-=======
 /**
  * This calculator in react are made for the front end libraries certicicate on
  * www.freecodecamp.org.
  * Made by Michael Houmann 2019
  */
 
->>>>>>> add_buttons
 const Header = () => (
   <header>
     <h1>React Calculator</h1>
@@ -153,7 +150,7 @@ class Calculator extends React.Component {
         let mulValue = this.state.subTotal * value;
         this.setState({
           subTotal: mulValue,
-          showInput: subValue.toString()
+          showInput: mulValue.toString()
         });
         break;
       case "/":
