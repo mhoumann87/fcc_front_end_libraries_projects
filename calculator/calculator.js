@@ -1,16 +1,3 @@
-/** 
-
-*/
-
-/**
-
-/**
- *
- */
-/**
- *
- */
-
 /**
  * At any time, pressing the clear button clears the input and output values,
  * and returns the calculator to its initialized state; 0 should be shown in
@@ -85,7 +72,21 @@ const Footer = () => (
 class Calculator extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { operations: [] };
+    this.state = {
+      operations: [],
+      reverse: false,
+      prevOperator: null,
+      inputValue: 0,
+      subTotal: 0
+    };
+    this.inputNum = this.inputNum.bind(this);
+  }
+
+  inputNum(e) {
+    console.log(e.target.value);
+    /* this.setState({
+      inputValue: props
+    }); */
   }
 
   render() {
@@ -95,7 +96,7 @@ class Calculator extends React.Component {
           {/*  My calculator should contain an element to display values
              with a corresponding id="display". */}
           <div className="display" id="display">
-            0123456789
+            {this.state.inputValue}
           </div>
           {/* My calculator should contain 10 clickable elements containing
           one number * each from 0-9, with the following corresponding IDs:
@@ -123,7 +124,7 @@ class Calculator extends React.Component {
             <div className="btn func" id="divide">
               <i className="fas fa-divide" />
             </div>
-            <div className="btn" id="one">
+            <div className="btn" id="one" value="1" onClick={this.inputNum}>
               1
             </div>
             <div className="btn" id="two">
