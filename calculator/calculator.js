@@ -41,7 +41,8 @@ class Calculator extends React.Component {
       showInput: "0",
       subTotal: 0,
       prevOperator: "",
-      digit: false
+      digit: false,
+      last_clicked: false
     };
 
     this.clear = this.clear.bind(this);
@@ -57,7 +58,8 @@ class Calculator extends React.Component {
       showInput: "0",
       subTotal: 0,
       prevOperator: "",
-      digit: false
+      digit: false,
+      last_clicked: false
     });
   }
   clearScreen() {
@@ -103,17 +105,28 @@ class Calculator extends React.Component {
   handleOperators(e) {
     e.persist();
     let clicked = "";
+
     if (e.target.classList[0] === "fas") {
       clicked = e.target.parentElement.attributes[2].value;
     } else {
       clicked = e.target.attributes[2].value;
     }
+    console.log(this.state.last_clicked);
+    if (!this.state.last_clicked) {
+      this.setState({
+        last_clicked: true
+      });
+    } else {
+      return;
+    }
+
     if (this.state.showInput === "0" || this.state.showInput === "") {
       return;
     } else if (this.state.prevOperator === "" && this.state.subTotal == 0) {
       this.setState({
         subTotal: parseFloat(this.state.showInput),
-        prevOperator: clicked
+        prevOperator: clicked,
+        last_clicked: false
       });
     } else if (this.state.prevOperator === "" && this.state.subTotal !== 0) {
       this.setState({
@@ -121,12 +134,14 @@ class Calculator extends React.Component {
       });
     } else if (this.state.prevOperator === "=") {
       this.setState({
-        prevOperator: clicked
+        prevOperator: clicked,
+        last_clicked: false
       });
     } else {
       this.operate(parseFloat(this.state.showInput), this.state.prevOperator);
       this.setState({
-        prevOperator: clicked
+        prevOperator: clicked,
+        last_clicked: false
       });
     }
   }
@@ -296,7 +311,7 @@ class Keyboard extends React.Component {
           value="."
           onClick={this.props.digit}
         >
-          <i className="fas fa-circle" />
+          .
         </div>
         <div
           className="btn func equals"
@@ -304,7 +319,7 @@ class Keyboard extends React.Component {
           value="="
           onClick={this.props.operator}
         >
-          <i className="fas fa-equals" />
+          =
         </div>
       </div>
     );

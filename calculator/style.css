@@ -1,3 +1,5 @@
+@import url("https://fonts.googleapis.com/css?family=Nunito+Sans:200,400|VT323");
+
 /*
 * Set up variables for colors and font
 */
@@ -164,9 +166,10 @@ footer i {
 }
 
 .dot {
-  font-size: 0.5rem;
+  font-size: 2rem;
 }
 
 .equals {
   grid-column: span 2;
+  font-size: 2rem;
 }
