@@ -1,0 +1,46 @@
+@import url("https://fonts.googleapis.com/css?family=Alef:400,700|Poiret+One");
+
+/*
+* Color variables for the page
+*/
+
+:root {
+}
+
+/*
+* Base CSS reset from https://github.com/mozdevs/cssremedy
+*/
+
+* {
+  box-sizing: border-box;
+}
+
+*::before,
+*::after {
+  box-sizing: inherit;
+}
+
+html {
+  font-size: 100%;
+}
+
+/*
+* Bacis page setup
+*/
+
+body {
+  padding: 0;
+  margin: 0;
+  font-family: "Alef", sans-serif;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: "Poiret One", cursive;
+  margin: 0;
+  line-height: 1;
+}
