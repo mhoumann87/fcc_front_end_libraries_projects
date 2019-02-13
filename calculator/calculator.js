@@ -37,96 +37,83 @@ class Calculator extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      operations: [],
       showInput: "0",
       subTotal: 0,
       prevOperator: "",
       digit: false,
-      last_clicked: false
+      last_clicked: ""
     };
+  } // constructor
 
-    this.clear = this.clear.bind(this);
-    this.clearScreen = this.clearScreen.bind(this);
-    this.reverse = this.reverse.bind(this);
-    this.setDigit = this.setDigit.bind(this);
-    this.handleNumbers = this.handleNumbers.bind(this);
-    this.handleOperators = this.handleOperators.bind(this);
-  }
+  handleNumbers = event => {
+    event.persist();
+    let currNum = event.target.attributes[2].value;
 
-  clear() {
     this.setState({
-      showInput: "0",
-      subTotal: 0,
-      prevOperator: "",
-      digit: false,
-      last_clicked: false
+      last_clicked: currNum
     });
-  }
-  clearScreen() {
-    this.setState({
-      showInput: "0"
-    });
-  }
-  reverse() {
-    let reverseNum = parseFloat(this.state.showInput) * -1;
-    this.setState({
-      showInput: reverseNum.toString()
-    });
-  }
-  setDigit() {
-    console.log("digit");
-    if (this.state.digit) {
-      return;
-    } else {
-      this.setState({
-        digit: true,
-        showInput: this.state.showInput + "."
-      });
-    }
-  }
-  handleNumbers(e) {
-    e.persist();
+
     if (this.state.showInput === "0") {
       this.state.showInput = "";
       this.setState({
-        showInput: this.state.showInput + e.target.attributes[2].value
+        showInput: this.state.showInput + currNum
       });
-    } else if (parseFloat(this.state.showInput) === this.state.subTotal) {
+    } else if (this.state.digit) {
+      this.setState({
+        showInput: this.state.showInput + currNum
+      });
+    } else if (
+      parseFloat(this.state.showInput) === this.state.subTotal ||
+      (this.state.digit &&
+        parseFloat(this.state.showInput) === this.state.subTotal)
+    ) {
       this.state.showInput = "";
       this.setState({
-        showInput: this.state.showInput + e.target.attributes[2].value
+        showInput: this.state.showInput + currNum
       });
     } else {
       this.setState({
-        showInput: this.state.showInput + e.target.attributes[2].value
+        showInput: this.state.showInput + currNum
       });
     }
-  }
-  handleOperators(e) {
-    e.persist();
-    let clicked = "";
+  }; // handleNumbers
 
-    if (e.target.classList[0] === "fas") {
-      clicked = e.target.parentElement.attributes[2].value;
+  handleOperators = event => {
+    event.persist();
+
+    const operators = "+-*/=";
+    const prevInput = this.state.showInput;
+    let currOpr = "";
+
+    if (event.target.classList[0] === "fas") {
+      currOpr = event.target.parentElement.attributes[2].value;
     } else {
-      clicked = e.target.attributes[2].value;
+      currOpr = event.target.attributes[2].value;
     }
-    console.log(this.state.last_clicked);
-    if (!this.state.last_clicked) {
+
+    if (operators.indexOf(this.state.last_clicked) < 0) {
+      console.log("first");
       this.setState({
-        last_clicked: true
+        last_clicked: currOpr
       });
     } else {
+      console.log("more", this.state.last_clicked);
+      this.setState({
+        showInput: prevInput,
+        prevOperator: currOpr,
+        last_clicked: currOpr
+      });
       return;
     }
 
     if (this.state.showInput === "0" || this.state.showInput === "") {
       return;
-    } else if (this.state.prevOperator === "" && this.state.subTotal == 0) {
+    } else if (this.state.prevOperator === "" && this.state.subTotal === 0) {
       this.setState({
+        prevOperator: currOpr,
         subTotal: parseFloat(this.state.showInput),
-        prevOperator: clicked,
-        last_clicked: false
+        last_clicked: "",
+        digit: false
       });
     } else if (this.state.prevOperator === "" && this.state.subTotal !== 0) {
       this.setState({
@@ -134,63 +121,94 @@ class Calculator extends React.Component {
       });
     } else if (this.state.prevOperator === "=") {
       this.setState({
-        prevOperator: clicked,
-        last_clicked: false
+        prevOperator: currOpr,
+        digit: false
       });
     } else {
       this.operate(parseFloat(this.state.showInput), this.state.prevOperator);
+      console.log(this.state.prevOperator);
       this.setState({
-        prevOperator: clicked,
-        last_clicked: false
+        prevOperator: currOpr,
+        last_clicked: "",
+        digit: false
       });
     }
-  }
-  operate(value, opr) {
+  }; // handleOperators
+
+  operate = (sum, opr) => {
     switch (opr) {
       case "+":
-        let addValue = this.state.subTotal + value;
+        let addValue = this.state.subTotal + sum;
         this.setState({
           subTotal: addValue,
           showInput: addValue.toString()
         });
         break;
       case "-":
-        let subValue = this.state.subTotal - value;
+        let subValue = this.state.subTotal - sum;
         this.setState({
           subTotal: subValue,
           showInput: subValue.toString()
         });
         break;
       case "*":
-        let mulValue = this.state.subTotal * value;
+        let multpValue = this.state.subTotal * sum;
         this.setState({
-          subTotal: mulValue,
-          showInput: mulValue.toString()
+          subTotal: multpValue,
+          showInput: multpValue.toString()
         });
         break;
       case "/":
-        if (this.state.subTotal === 0 || value === 0) {
+        if (this.state.subTotal === 0 || sum === 0) {
           this.setState({
             showInput: "error"
           });
           break;
+        } else {
+          let divValue = this.state.subTotal / sum;
+          this.setState({
+            subTotal: divValue,
+            showInput: divValue.toString()
+          });
+          break;
         }
-        let divValue = this.state.subTotal / value;
-        this.setState({
-          subTotal: divValue,
-          showInput: divValue.toString()
-        });
-        break;
       case "=":
-        let res = this.state.subTotal;
+        let value = this.setState.subTotal;
         this.setState({
-          showInput: res,
-          subTotal: res,
+          showInput: parseFloat(value),
           prevOperator: "="
         });
         break;
+    } // switch
+  };
+
+  clear = () => {
+    this.setState({
+      showInput: "0",
+      subTotal: 0,
+      prevOperator: "",
+      digit: false,
+      last_clicked: ""
+    });
+  };
+
+  clearScreen = () => {
+    this.setState({
+      showInput: "0"
+    });
+  };
+
+  setDigit = () => {
+    console.log(this.state.digit);
+    if (this.state.digit) {
+      return;
+    } else {
+      this.setState({
+        showInput: this.state.showInput + ".",
+        digit: true
+      });
     }
-  }
+  };
 
   render() {
     return (
@@ -212,8 +230,8 @@ class Calculator extends React.Component {
         </div>
       </main>
     );
-  }
-}
+  } // render()
+} // Calculator
 
 class Keyboard extends React.Component {
   render() {
@@ -323,8 +341,8 @@ class Keyboard extends React.Component {
         </div>
       </div>
     );
-  }
-}
+  } // render
+} // Keyboard
 
 const App = () => (
   <div>
