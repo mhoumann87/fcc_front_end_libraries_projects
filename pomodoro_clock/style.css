@@ -1,10 +1,19 @@
-@import url("https://fonts.googleapis.com/css?family=Alef:400,700|Poiret+One");
+@import url("https://fonts.googleapis.com/css?family=Gruppo|Montserrat:400,400i,600");
 
 /*
-* Color variables for the page
+* Color and Fonts variables for the page
 */
 
 :root {
+  --background-color: #d4e3e9;
+  --background-header: #5d7139;
+  --background-card: #a6b4cd;
+  --font-main: #3e4455;
+  --font-header: #d4e3e9;
+  --font-hover: #ff9c6f;
+
+  --main-font: "Montserrat", sans-serif;
+  --header-font: "Gruppo", cursive;
 }
 
 /*
@@ -31,7 +40,9 @@ html {
 body {
   padding: 0;
   margin: 0;
-  font-family: "Alef", sans-serif;
+  font-family: var(--main-font);
+  background-color: var(--background-color);
+  color: var(--font-main);
 }
 
 h1,
@@ -40,7 +51,150 @@ h3,
 h4,
 h5,
 h6 {
-  font-family: "Poiret One", cursive;
+  font-family: var(--header-font);
   margin: 0;
   line-height: 1;
+}
+
+/*
+* Header and Footer
+*/
+
+header,
+footer {
+  background-color: var(--background-header);
+  color: var(--font-header);
+  padding: 0.5rem;
+}
+
+header h1 {
+  font-size: 4rem;
+}
+
+header p {
+  margin: 0;
+  font-size: 1.1rem;
+  font-style: italic;
+}
+
+footer {
+  font-size: 1.1rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+footer a {
+  color: var(--font-header);
+  transition: all 0.3s;
+}
+
+footer .copy a:hover,
+footer .copy a:focus {
+  color: var(--font-hover);
+}
+
+footer i {
+  font-size: 1.8rem;
+  padding-left: 0.5em;
+  color: var(--font-header);
+  transition: all 0.3s;
+}
+
+.fa-twitter:hover,
+.fa-twitter:focus {
+  color: #00aced;
+}
+
+.fa-github:hover,
+.fa-github:focus {
+  color: #24292e;
+}
+
+.fa-linkedin:hover,
+.fa-linkedin:focus {
+  color: #007bb6;
+}
+
+/*
+* Clock
+*/
+
+main {
+  margin: 2rem 0;
+  min-height: 72vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.clock-box {
+  width: 60%;
+  padding: 2rem;
+  border: 5px solid var(--background-header);
+  border-radius: 10px;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-template-rows: repeat(2, 1fr);
+  gap: 2rem;
+}
+
+.card {
+  background-color: var(--background-card);
+  padding: 1rem;
+  border-radius: 10px;
+  box-shadow: 1px 1px 1px 1px rgba(53, 53, 53, 0.2);
+}
+
+.card h2 {
+  font-size: 1.4rem;
+  margin-bottom: 1rem;
+}
+
+.timer {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.time-box {
+  font-size: 2rem;
+}
+
+.btn {
+  cursor: pointer;
+  background: transparent;
+  border: none;
+  outline: none;
+  padding: 0 0.5rem;
+}
+
+.btn i {
+  font-size: 1.5rem;
+}
+
+.button-box {
+}
+
+.session-box {
+  grid-column: 1 / -1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.time-left {
+  font-size: 4rem;
+  margin-bottom: 1rem;
+}
+
+.session-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.session-btn .btn {
 }
