@@ -152,6 +152,7 @@ main {
 }
 
 .timer {
+  margin-top: 3rem;
   width: 100%;
   display: flex;
   justify-content: space-between;
@@ -160,6 +161,11 @@ main {
 
 .time-box {
   font-size: 2rem;
+  display: flex;
+}
+
+.time-box div {
+  padding: 0.5rem;
 }
 
 .btn {
@@ -172,9 +178,6 @@ main {
 
 .btn i {
   font-size: 1.5rem;
-}
-
-.button-box {
 }
 
 .session-box {
@@ -194,7 +197,4 @@ main {
   display: flex;
   align-items: center;
   justify-content: center;
-}
-
-.session-btn .btn {
 }

@@ -42,20 +42,38 @@ class Clock extends React.Component {
   } // constructor
 
   increaseBreak = () => {
-    console.log("break up");
+    if (this.state.breakLength < 60) {
+      this.setState({
+        breakLength: this.state.breakLength + 1
+      });
+    }
   };
 
   decreaseBreak = () => {
-    console.log("break down");
+    if (this.state.breakLength > 0) {
+      this.setState({
+        breakLength: this.state.breakLength - 1
+      });
+    }
   };
 
   increaseSession = () => {
-    console.log("session up");
+    if (this.state.sessionLength < 60) {
+      this.setState({
+        sessionLength: this.state.sessionLength + 1
+      });
+    }
   };
 
   decreaseSession = () => {
-    console.log("session down");
+    if (this.state.sessionLength > 0) {
+      this.setState({
+        sessionLength: this.state.sessionLength - 1
+      });
+    }
   };
+
+  timer = () => {};
 
   render() {
     return (
@@ -65,8 +83,9 @@ class Clock extends React.Component {
             <h2>Set Break Length</h2>
             <div className="timer">
               <div className="time">
-                <div className="time-box" id="break-length">
-                  {this.state.breakLength}
+                <div className="time-box">
+                  <div id="break-length">{this.state.breakLength}</div>
+                  <div>sec</div>
                 </div>
               </div>
               <div className="button-box">
@@ -92,8 +111,9 @@ class Clock extends React.Component {
             <h2>Set Session Length</h2>
             <div className="timer">
               <div className="time">
-                <div className="time-box" id="session-length">
-                  {this.state.sessionLength}
+                <div className="time-box">
+                  <div id="session-length">{this.state.sessionLength}</div>
+                  <div>min</div>
                 </div>
               </div>
               <div className="button-box">
@@ -118,7 +138,7 @@ class Clock extends React.Component {
           <div className="session-box card" id="timer-label">
             <h2>Session</h2>
             <div className="time-left" id="time-left">
-              {this.state.timeLeft}
+              {this.state.sessionLength}
             </div>
             <div className="session-btn">
               <button className="btn start_stop" id="start_stop">
